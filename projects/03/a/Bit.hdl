@@ -14,5 +14,10 @@ CHIP Bit {
     OUT out;
 
     PARTS:
+	//if load at t-1 equals 1 then output at time t is input at t-1 (i.e. delay)
+	//That can be represented by the dff chip
 	
+	//this looks so wierd but works	
+	Mux(a=pstate,b=in,sel=load,out=state);
+	DFF(in=state,out=pstate,out=out);
 }
