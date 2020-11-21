@@ -27,6 +27,6 @@ CHIP RAM64 {
 	RAM8(in=in,load=rg,address=address[0..2],out=r7);
 	RAM8(in=in,load=rh,address=address[0..2],out=r8);
 	
-	Mux8Way16(a=r1,b=r2,c=r3,d=r4,e=r5,f=r6,g=r7,h=r8,sel=address[3..5],out=out)
+	Mux8Way16(a=r1,b=r2,c=r3,d=r4,e=r5,f=r6,g=r7,h=r8,sel=address[3..5],out=out);
 		
 }
