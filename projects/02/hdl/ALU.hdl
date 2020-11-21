@@ -62,9 +62,10 @@ CHIP ALU {
 		Mux16(a=r,b=nr,sel=no,out=out);
 
 		//dealing with the zr and ng
-
 		Mux16(a=r,b=nr,sel=no,out[0..7]=outhalf1, out[8..15]=outhalf2,out[15]=ng);
 		
+		//Idea: Maybe create an Or16Way chip 
+	
 		Or8Way(in=outhalf1,out=r1);
 		Or8Way(in=outhalf2,out=r2);
 		Or(a=r1,b=r2,out=r3);
