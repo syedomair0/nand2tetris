@@ -7,3 +7,13 @@
 // (R0, R1, R2 refer to RAM[0], RAM[1], and RAM[2], respectively.)
 
 // Put your code here.
+
+// R0 = 4, R1 = 3
+/*	int i=0;
+	while(i < R0){
+		R1 += R1;
+		i++;
+	}
+	R2 = R1;
+*/
+
