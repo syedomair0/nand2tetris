@@ -10,10 +10,32 @@
 
 // R0 = 4, R1 = 3
 /*	int i=0;
+	int product=R1;
 	while(i < R0){
-		R1 += R1;
+		product += R1;
 		i++;
 	}
-	R2 = R1;
+	R2 = product;
 */
 
+	@i
+	M=0
+	@product
+	M=R1
+(LOOP)
+	@product
+	D=M
+	@R0
+	D=D-A
+	D;JGT
+	@R1
+	D=M
+	@product	
+	M=D+M	
+	@i
+	M=M+1	
+	@LOOP
+	0;JMP
+(END)
+	@END
+	0;JMP
