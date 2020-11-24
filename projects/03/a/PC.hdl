@@ -9,6 +9,11 @@
  * else if (load[t] == 1)  out[t+1] = in[t]
  * else if (inc[t] == 1)   out[t+1] = out[t] + 1  (integer addition)
  * else                    out[t+1] = out[t]
+ *
+	Mux16(a=in,b=false,sel=reset,out=p);
+	Register(in=p,load=load,out=q);
+	Inc16(in=q,out=r);
+	Mux16(a=q,b=r,sel=inc,out=out);
  */
 
 CHIP PC {
@@ -16,8 +21,11 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-	Mux16(a=in,b=false,sel=reset,out=p);
-	Register(in=p,load=load,out=q);
-	Inc16(in=q,out=r);
-	Mux16(a=q,b=r,sel=inc,out=out);
+	
+	Inc16(in=state,out=incstate);
+	Mux16(a=state,b=incstate,sel=inc,out=s1);
+	Mux16(a=s1,b=in,sel=load,out=s2);
+	Mux16(a=s2,b=false,sel=reset,out=s3);
+	
+	Register(in=s3,load=true,out=state,out=out);
 }
