@@ -8,32 +8,23 @@
 
 // Put your code here.
 
-// R0 = 4, R1 = 3
-/*	int i=0;
-	int product=R1;
-	while(i < R0){
-		product += R1;
-		i++;
-	}
-	R2 = product;
-*/
-
-	@i
-	M=0
-	@product
-	M=R1
-(LOOP)
-	@product
-	D=M
 	@R0
-	D=D-A
-	D;JGT
+	D=M
+	@i
+	M=D
+	@R2
+	M=0
+(LOOP)
+	@i
+	D=M
+	@END
+	D;JEQ
 	@R1
 	D=M
-	@product	
-	M=D+M	
+	@R2
+	M=D+M
 	@i
-	M=M+1	
+	M=M-1
 	@LOOP
 	0;JMP
 (END)
