@@ -8,7 +8,42 @@
 // i.e. writes "black" in every pixel;
 // the screen should remain fully black as long as the key is pressed. 
 // When no key is pressed, the program clears the screen, i.e. writes
-// "white" in every pixel;
-// the screen should remain fully clear as long as no key is pressed.
-
-// Put your code here.
+	(KEYBOARD)
+		@KBD
+		D=M
+		@WHITE
+		D;JEQ
+		@BLACK
+		D;JNE
+	
+	(BLACK)
+		@8192
+		D=A
+		(LOOP)
+			@END
+			D;JLT
+			@SCREEN
+			A=A+D
+			M=1
+			D=D-1
+			@LOOP
+			0;JMP
+		(END)
+		@KEYBOARD
+		0;JMP
+	
+	(WHITE)
+		@8192
+		D=A
+		(LOOPW)
+			@ENDW
+			D;JLT
+			@SCREEN
+			A=A+D
+			M=0
+			D=D-1
+			@LOOPW
+			0;JMP
+		(ENDW)
+		@KEYBOARD
+		0;JMP
