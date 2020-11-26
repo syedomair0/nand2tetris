@@ -24,7 +24,7 @@
 			D;JLT
 			@SCREEN
 			A=A+D
-			M=1
+			M=-1
 			D=D-1
 			@LOOP
 			0;JMP
