@@ -17,7 +17,6 @@
 		D;JNE
 	
 	(BLACK)
-		//maybe this approach doesn't work
 		@8192
 		D=A
 		(LOOP)
