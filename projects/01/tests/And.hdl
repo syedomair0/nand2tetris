@@ -7,6 +7,7 @@
  * And gate:
  * out = 1 if (a == 1 and b == 1)
  *       0 otherwise
+ * Completed
  */
 
 CHIP And {
@@ -17,3 +18,5 @@ CHIP And {
     Nand(a=a, b=b, out=abc);
     Not(in=abc, out=out);
 }
+
+
