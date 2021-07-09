@@ -8,23 +8,23 @@
 
 // Put your code here.
 
-	@R0
-	D=M
+	@R0             
+	D=M             //D=RAM[R0]
 	@i
-	M=D
+	M=D             //RAM[i]=R0
 	@R2
-	M=0
+	M=0             //RAM[R2]=0
 (LOOP)
 	@i
-	D=M
+	D=M             //D=RAM[i]
 	@END
-	D;JEQ
+	D;JEQ           //if i==0 goto END
 	@R1
-	D=M
-	@R2
-	M=D+M
+	D=M             //D=RAM[R1]
+	@R2             
+	M=D+M           //RAM[R2]=R1+RAM[R2]
 	@i
-	M=M-1
+	M=M-1           //i--
 	@LOOP
 	0;JMP
 (END)

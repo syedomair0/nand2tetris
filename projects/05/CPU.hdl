@@ -27,17 +27,128 @@
 
 CHIP CPU {
 
-    IN  inM[16],         // M value input  (M = contents of RAM[A])
-        instruction[16], // Instruction for execution
-        reset;           // Signals whether to re-start the current
-                         // program (reset==1) or continue executing
-                         // the current program (reset==0).
+    IN  inM[16],         /* M value input  (M = contents of RAM[A]) */
+        instruction[16], /* Instruction for execution */
+        reset;           /* Signals whether to re-start the current */
+                         /* program (reset==1) or continue executing */
+                         /* the current program (reset==0). */
 
-    OUT outM[16],        // M value output
-        writeM,          // Write to M? 
-        addressM[15],    // Address in data memory (of M)
-        pc[15];          // address of next instruction
+    OUT outM[16],        /* M value output */ 
+        writeM,          /* Write to M? */
+        addressM[15],    /* Address in data memory (of M) */
+        pc[15];          /* address of next instruction */
 
     PARTS:
-    // Put your code here:
+
+    /* ALU
+     * 2 Registers (ARegsiter and DRegister)
+     * PC
+     */
+
+     /*
+      * A instruction or C instruction can be determined by the MSB
+      * if it is an A instruction then instruction[1..15] is the value of the address
+      *
+      * if it is a C instruction which is more likely then 
+      * instruction[15]       => indicator,
+      * instruction[13..14]   => unused,
+      * instruction[12]       => a bit,
+      * instruction[6..11]    => compute bit,
+      * instruction[3..5]     => destination,
+      * instruction[0..2]     => jump destination
+      *
+      * Instruction indexing    i  x   x   a  c  c  c c c c  d d d  j j j
+      *
+      *                         |  |   |   |  |  |  | | | |  | | |  | | |
+      *                         V  V   V   V  V  V  V V V V  V V V  V V V
+      *
+      *                         15 14  13  12 11 10 9 8 7 6  5 4 3  2 1 0 
+      */
+
+    /* First Decode the instruction thing to fill in the c gaps */
+
+    /* A-register or D-register */
+
+        Mux16(a=instruction,
+              b=ALUout,
+              sel=instruction[15],
+              out=ARegIn);
+
+        Not(in=instruction[15],
+            out=Ainstruction);
+
+        Or(a=Ainstruction,
+           b=instruction[5],
+           out=ARegLoad);
+
+        ARegister(in=ARegIn,
+                  load=ARegLoad,
+                  out=ARegOut,out[0..14]=addressM);
+
+        And(a=instruction[4],
+            b=instruction[15],
+            out=DRegLoad);
+
+        DRegister(in=ALUout,
+                  load=DRegLoad,
+                  out=DRegOut);
+
+    /* Done with registers */
+
+        Mux16(a=ARegOut,
+              b=inM,
+              sel=instruction[12],
+              out=AM);
+
+        ALU(x=DRegOut,y=AM,
+            zx=instruction[11],
+            nx=instruction[10],
+            zy=instruction[9],
+            ny=instruction[8],
+            f=instruction[7],
+            no=instruction[6],
+            out=ALUout,out=outM,
+            zr=ALUzr,
+            ng=ALUng);
+
+        Not(in=ALUzr,
+            out=Notzr);
+
+        Not(in=ALUng,
+            out=Notng);
+
+        And(a=Notzr,
+            b=Notng,
+            out=ALUpos);
+
+        And(a=instruction[15],
+            b=instruction[3],
+            out=writeM);
+
+        And(a=instruction[2],
+            b=ALUng,
+            out=JmpNegative);
+
+        And(a=instruction[1],
+            b=ALUzr,
+            out=JmpZero);
+
+        And(a=instruction[0],
+            b=ALUpos,
+            out=JmpPos);
+
+        Or8Way(in[0]=JmpNegative,
+               in[1]=JmpZero,
+               in[2]=JmpPos,
+               out=Jmp);
+
+        And(a=instruction[15],
+            b=Jmp,
+            out=PCLoad);
+
+        PC(in=ARegOut,
+           load=PCLoad,
+           inc=true,
+           reset=reset,
+           out[0..14]=pc);
 }

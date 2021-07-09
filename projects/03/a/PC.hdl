@@ -9,11 +9,6 @@
  * else if (load[t] == 1)  out[t+1] = in[t]
  * else if (inc[t] == 1)   out[t+1] = out[t] + 1  (integer addition)
  * else                    out[t+1] = out[t]
- *
-	Mux16(a=in,b=false,sel=reset,out=p);
-	Register(in=p,load=load,out=q);
-	Inc16(in=q,out=r);
-	Mux16(a=q,b=r,sel=inc,out=out);
  */
 
 CHIP PC {
