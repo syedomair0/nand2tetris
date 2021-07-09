@@ -5,6 +5,7 @@
 
 /**
  * Computes the sum of two bits.
+ * Works. Tested.
  */
 
 CHIP HalfAdder {
