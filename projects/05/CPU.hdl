@@ -23,6 +23,7 @@
  * to their new values only in the next time step. If reset==1 then the 
  * CPU jumps to address 0 (i.e. pc is set to 0 in next time step) rather 
  * than to the address resulting from executing the current instruction. 
+ * 
  */
 
 CHIP CPU {
@@ -31,7 +32,7 @@ CHIP CPU {
         instruction[16], /* Instruction for execution */
         reset;           /* Signals whether to re-start the current */
                          /* program (reset==1) or continue executing */
-                         /* the current program (reset==0). */
+                         /* the current program (reset==0) */
 
     OUT outM[16],        /* M value output */ 
         writeM,          /* Write to M? */
