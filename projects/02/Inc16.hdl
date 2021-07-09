@@ -6,6 +6,7 @@
 /**
  * 16-bit incrementer:
  * out = in + 1 (arithmetic addition)
+ * This was actually fun to see
  */
 
 CHIP Inc16 {
@@ -13,7 +14,7 @@ CHIP Inc16 {
     OUT out[16];
 
     PARTS:
-	  //b[0] = true is sufficient because the results are chained in Add16 chip
+	  /* b[0] = true is sufficient because the results are chained in Add16 chip */
 
 	  Add16(a=in,b[0]=true,out=out); 
 }
