@@ -11,7 +11,7 @@
  * and "down" (0). From this point onward the user is at the mercy of 
  * the software. In particular, depending on the program's code, the 
  * screen may show some output and the user may be able to interact 
- * with the computer via the keyboard.
+ * with the computer via the keyboard
  */
 
 CHIP Computer {
