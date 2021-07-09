@@ -9,6 +9,8 @@
  *                            {0, in, 0, 0, 0, 0, 0, 0} if sel == 001
  *                            etc.
  *                            {0, 0, 0, 0, 0, 0, 0, in} if sel == 111
+ *
+ * Works!
  */
 
 CHIP DMux8Way {
