@@ -9,6 +9,8 @@
  *       b if sel == 001
  *       etc.
  *       h if sel == 111
+ *
+ * Bit complicated but done. Tested.
  */
 
 CHIP Mux8Way16 {
