@@ -6,6 +6,7 @@
 /**
  * Adds two 16-bit values.
  * The most significant carry bit is ignored.
+ * Makes sense :). Tested.
  */
 
 CHIP Add16 {
