@@ -9,6 +9,8 @@
  *       b if sel == 01
  *       c if sel == 10
  *       d if sel == 11
+ *
+ * Works. Tested
  */
 
 CHIP Mux4Way16 {
