@@ -6,6 +6,7 @@
 /**
  * Exclusive-or gate:
  * out = not (a == b)
+ * Teeny bit complicated. Done. Tested.
  */
 
 CHIP Xor {
