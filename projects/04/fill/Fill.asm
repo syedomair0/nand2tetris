@@ -8,6 +8,7 @@
 // i.e. writes "black" in every pixel;
 // the screen should remain fully black as long as the key is pressed. 
 // When no key is pressed, the program clears the screen, i.e. writes
+// very confusing for a while. Use assembler.py and compare with Fill.hack.
 	(KEYBOARD)
 		@KBD
 		D=M
