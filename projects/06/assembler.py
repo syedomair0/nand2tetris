@@ -1,10 +1,10 @@
 #!/opt/homebrew/bin/python3.9
 
-#parser = argparse.ArgumentParser(prog="Hack Assembler", description="Assemble the Hack assembly to binary")
-import sys
+from pprint import pprint as pp
 
-with open(sys.argv[1], 'r') as f:
-    for i in f.read().splitlines():
-        if (i and not i.startswith("//")):
-            print(i.strip())
+with open('pong/Pong.asm', 'rt') as f:
+    commands = {counter : command.strip().partition(' ')[0] 
+                    for counter, command in enumerate(f.read().splitlines(), start=1) 
+                        if (not command.startswith("//") and command)}
 
+pp(commands)
