@@ -1,4 +1,4 @@
-#!/opt/homebrew/bin/python3.9
+#!/usr/bin/python3
 
 #parser = argparse.ArgumentParser(prog="Hack Assembler", description="Assemble the Hack assembly to binary")
 import sys
