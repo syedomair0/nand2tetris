@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 
 import sys
+import re
 from pprint import pprint as pp
+
+"""Not efficient at all!!! Write better code"""
 
 jump_table = {"null":"000",
               "JGT" :"001",
@@ -52,8 +55,24 @@ comp_table = {"0": {"0"  : "101010",
                       "D|M": "010101",}
                 }
 
-def parser():
-    pass
+def parser(cmd):
+    ret = ""
+    dest, comp, jmp = None, None, None
+    if(cmd.startswith('@')):
+        """
+        there needs to be a condition here for resolving symbols and integers
+        """
+        if(cmd[1:].isnumeric() and (int(cmd[1:]) < 2**15)):
+            ret += f'{int(cmd[1:]):016b}'
+            return ret
+    elif("=" in cmd or ";" in cmd):
+        if('=' in cmd):
+            dest,comp = cmd.split('=')
+            if(';' in comp):
+                comp, jmp = comp.split(';')
+        if(';' in cmd):
+            comp,jmp = cmd.split(';')
+        return(f'dest={dest}, comp={comp}, jump={jmp}')
 
 def code():
     pass
@@ -62,7 +81,7 @@ def build_symbol_table():
     pass
 
 with open(sys.argv[1], 'rt') as f:
-    commands = {counter : (command.strip().partition(' ')[0], True if command.startswith("(") else False)
+    commands = {counter : [command.strip().partition(' ')[0], True if command.startswith("(") else False, parser(command.strip().partition(' ' )[0])]
                     for counter, command in enumerate(f.read().splitlines(), start=1)
                         if (not command.startswith("//") and command) }
 
