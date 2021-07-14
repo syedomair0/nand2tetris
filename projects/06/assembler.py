@@ -80,16 +80,24 @@ def code():
     pass
 
 def build_symbol_table(commands):
-    symbol_table = {}
+    symbol_table = {f'R{num}' : num for num in range(16)}
+    symbol_table.update({'SCREEN': 0x4000, 'KBD': 0x6000, 'SP': 0, 'LCL': '1','ARG': '2', 'THIS': '3', 'THAT': '4'})
+
     for line, cmd in commands.items():
+        label = ""
         if(cmd.startswith('(')):
             label = cmd[1:len(cmd)-1]
-        elif(cmd.startswith('@') and not cmd[1:].isnumeric() and cmd[1:len(cmd)-1] not in symbol_table):
-            label = cmd
 
-        if label not in symbol_table:
+        if label and label not in symbol_table:
             symbol_table[label] = line
 
+    for line, cmd in commands.items():
+        label=""
+        if(cmd.startswith('@') and not cmd[1:].isnumeric()):
+            label = cmd[1:]
+
+        if label and label not in symbol_table:
+            symbol_table[label] = line
 
     return(symbol_table)
 
