@@ -3,6 +3,7 @@
 import sys
 from pprint import pprint as pp
 
+#Comment
 
 symbol_table = {f'R{num}' : num for num in range(16)}
 symbol_table.update({'SCREEN': 0x4000, 'KBD': 0x6000, 'SP': 0, 'LCL': '1','ARG': '2', 'THIS': '3', 'THAT': '4'})
