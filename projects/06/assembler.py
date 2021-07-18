@@ -3,6 +3,11 @@
 import sys
 from pprint import pprint as pp
 
+"""
+note to self:
+    write better code after finishing the entire project
+"""
+
 dest_table = {None  :"000",
               "M"   :"001",
               "D"   :"010",
