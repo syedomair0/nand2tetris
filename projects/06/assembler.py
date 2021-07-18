@@ -3,8 +3,6 @@
 import sys
 from pprint import pprint as pp
 
-"""Not efficient at all!!! Write better code"""
-
 dest_table = {None  :"000",
               "M"   :"001",
               "D"   :"010",
@@ -75,9 +73,9 @@ def build_symbol_table(cmd):
     else:
         if(cmd.startswith('@')):                                    # if it is an A-instruction
             var = cmd[1:]
-            if(var.isnumeric() and (int(var) < 2**15)):     # if it is an A-instruction and is entirely a number
+            if(var.isnumeric() and (int(var) < 2**15)):             # if it is an A-instruction and is entirely a number
                 return(f'0{int(cmd[1:]):015b}')
-            elif(var not in symbol_table):                      # if A-instruction then look for it in the symbol_table first
+            elif(var not in symbol_table):                          # if A-instruction then look for it in the symbol_table first
                 symbol_table[var] = f'0{counter:015b}'
                 counter += 1
             return (symbol_table[var])
@@ -90,7 +88,7 @@ def build_symbol_table(cmd):
                 comp,jmp = cmd.split(';')
 
     a_bit = 0
-    if(comp is not None and ('M' in comp)):                     # decide the a-bit of the final binary and for the comp_table
+    if(comp is not None and ('M' in comp)):                         # decide the a-bit of the final binary and for the comp_table
             a_bit = 1
 
     dest_binary = dest_table[dest]
