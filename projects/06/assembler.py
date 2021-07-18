@@ -98,17 +98,18 @@ def build_symbol_table(cmd):
 
     return(f'{final_binary}')
 
+const = 0
 def get_labels(commands):
+    global const
     for line, cmd in commands.items():
         if(cmd.startswith('(')):
             label = cmd[1:len(cmd)-1]
-            symbol_table[label] = f'0{line:015b}'
+            symbol_table[label] = f'0{(line-const):015b}'
+            const += 1
 
 with open(sys.argv[1], 'rt') as f:
-    commands = {counter : command.strip().partition(' ')[0]# parser(command.strip().partition(' ' )[0])]
-                    for counter, command in enumerate(f.read().splitlines(), start=1)
-                        if (command and not command.startswith("//") ) }
-
+    commands = [command.strip().partition(' ')[0] for command in f.read().splitlines() if (command and not command.startswith('//'))]
+    commands = {count : command for count, command in enumerate(commands,start=0)}
 
 if __name__ == "__main__":
     get_labels(commands)
@@ -117,5 +118,7 @@ if __name__ == "__main__":
     hack_filename = filename.replace('asm', 'hack')
     f = open(hack_filename, 'wt')
     for cmd in commands.values():
-        f.write(build_symbol_table(cmd))
-        f.write('\n')
+        a = build_symbol_table(cmd)
+        if a:
+            f.write(a)
+            f.write('\n')
