@@ -19,7 +19,7 @@ CHIP Bit {
 	//That can be represented by the dff chip
 	
 	//this looks so wierd but works	
-	//A possible explanation is that these 2 lines represent a circuit and not a programming procedure
+    //A way to understand is that these 2 lines represent a circuit and not a programming procedure and it is all executed at once
 	//So it is easier to think of it as it is wired that way 
 
 	Mux(a=pstate,b=in,sel=load,out=state);
